@@ -18,8 +18,8 @@ section .data
     tan equ $- gre
 
 section .bss
-    nome resb 0xF
-
+    nome resb 0xFF
+    
 section .text
 
 global _start
@@ -30,21 +30,27 @@ _start:
     mov ecx, msg
     mov edx, tam
     int SYS_CALL
+    
     mov eax, SYS_READ
     mov ebx, STD_IN
     mov ecx, nome
-    mov edx, 0xD
+    mov edx, 0xFF
     int SYS_CALL
+    
+    mov esi, eax
+    
     mov eax, SYS_WRITE
     mov ebx, STD_OUT
     mov ecx, gre
     mov edx, tan
     int SYS_CALL
+    
     mov eax, SYS_WRITE
     mov ebx, STD_OUT
     mov ecx, nome
-    mov edx, 0xF
+    mov edx, esi
     int SYS_CALL
+    
     mov eax, SYS_EXIT
     mov ebx, RET_EXIT
     int SYS_CALL
